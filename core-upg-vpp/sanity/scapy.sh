@@ -1,0 +1,12 @@
+#!/usr/bin/expect -f
+spawn "/usr/bin/scapy"
+#spawn "/home/ubuntu/workspace/scapy/run_scapy"
+expect ">>> "
+send "sendp(Ether(dst=\"00:00:00:00:00:0b\")/IP(src=\"192.168.73.1\",dst=\"10.10.10.10\",version=4)/ICMP(), iface=\"n6\", count=1000000)\r"
+expect ">>> "
+send "from scapy.contrib.gtp import GTP_U_Header, GTPPDUSessionContainer\r"
+expect ">>> "
+#send "sendp(Ether(dst=\"00:00:00:00:00:0a\")/IP(src=\"192.168.72.1\",dst=\"192.168.72.201\")/UDP(dport=2152)/GTP_U_Header(teid=1234)/GTPPDUSessionContainer(type=1, QFI=5)/IP(src=\"10.10.10.10\", dst=\"192.168.73.1\", version=4)/ICMP(), iface=\"n3\", count=100)\r"
+expect ">>> "
+send "\r\r"
+expect ">>> "

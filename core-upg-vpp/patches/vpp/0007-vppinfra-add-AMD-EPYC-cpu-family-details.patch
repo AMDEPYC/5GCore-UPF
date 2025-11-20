@@ -1,0 +1,74 @@
+From b999434b435679f729d0caa0ce0edbc2d3a3a786 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 21 Oct 2025 04:32:16 +0000
+Subject: [PATCH 07/11] vppinfra: add AMD EPYC cpu family details
+
+Type: feature
+
+- Added support for AMD EPYC processor family
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/vppinfra/cpu.c | 23 +++++++++++++++++++++++
+ src/vppinfra/cpu.h |  4 ++++
+ 2 files changed, 27 insertions(+)
+
+diff --git a/src/vppinfra/cpu.c b/src/vppinfra/cpu.c
+index 4f6b46f62..6b27bf42d 100644
+--- a/src/vppinfra/cpu.c
++++ b/src/vppinfra/cpu.c
+@@ -93,6 +93,13 @@ format_cpu_uarch (u8 * s, va_list * args)
+ #if __x86_64__
+   u32 __attribute__ ((unused)) eax, ebx, ecx, edx;
+   u8 model, family, stepping;
++  u8 amd_vendor = 0;
++
++  if (__get_cpuid (0, &eax, &ebx, &ecx, &edx) == 0)
++	  return format (s, "unknown (missing cpuid)");
++
++  if (amd_vendor (ebx, ecx, edx))
++	  amd_vendor = 1;
+ 
+   if (__get_cpuid (1, &eax, &ebx, &ecx, &edx) == 0)
+     return format (s, "unknown (missing cpuid)");
+@@ -101,6 +108,22 @@ format_cpu_uarch (u8 * s, va_list * args)
+   family = (eax >> 8) & 0x0f;
+   stepping = eax & 0x0f;
+ 
++  if (amd_vendor)
++    {
++      family = ((eax >> 8) & 0x0f);
++      model = ((eax >> 4) & 0x0f);
++      if (family >= 0xf)
++	{
++	  family = family + ((eax >> 20) & 0xf);
++	  model = (model | ((eax >> 12) & 0xf0));
++	}
++      return format (s, "Zen (family 0x%02x model 0x%02x)", family, model);
++    }
++  else
++    {
++      model = ((eax >> 4) & 0x0f) | ((eax >> 12) & 0xf0);
++      family = (eax >> 8) & 0x0f;
++    }
+ #define _(f,m,a,c) if ((model == m) && (family == f)) return \
+ format(s, "[0x%x] %s ([0x%02x] %s) stepping 0x%x", f, a, m, c, stepping);
+   foreach_x86_cpu_uarch
+diff --git a/src/vppinfra/cpu.h b/src/vppinfra/cpu.h
+index 3c5e59e6e..f0b10e23a 100644
+--- a/src/vppinfra/cpu.h
++++ b/src/vppinfra/cpu.h
+@@ -36,6 +36,10 @@
+ #define foreach_march_variant
+ #endif
+ 
++#define amd_vendor(t1, t2, t3)                                                \
++  ((t1 == 0x68747541) && /* htuA */                                           \
++   (t2 == 0x444d4163) && /* DMAc */                                           \
++   (t3 == 0x69746e65))	 /* itne */
+ typedef enum
+ {
+   CLIB_MARCH_VARIANT_TYPE = 0,
+-- 
+2.34.1
+

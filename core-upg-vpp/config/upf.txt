@@ -1,0 +1,38 @@
+ip  table add 1
+ip6 table add 1
+ip  table add 2
+ip6 table add 2
+
+create tap id 0 hw-addr 00:01:02:03:04:05 host-if-name n3
+set interface mac address tap0 00:00:00:00:00:0a
+set interface mtu 1500 tap0
+set interface ip table tap0 1
+set interface ip address tap0 192.168.72.201/24
+set interface state tap0 up
+
+create tap id 1 hw-addr 10:11:12:13:14:15 host-if-name n4
+set interface mtu 1500 tap1
+set interface ip table tap1 0
+set interface ip address tap1 192.168.70.201/24
+set interface state tap1 up
+
+create tap id 2 hw-addr 20:21:22:23:24:25 host-if-name n6
+set interface mac address tap2 00:00:00:00:00:0b
+set interface mtu 1500 tap2
+set interface ip table tap2 1
+set interface ip address tap2 192.168.73.201/24
+set interface state tap2 up
+
+ip route add 0.0.0.0/0 table 0 via 192.168.70.1 tap1
+ip route add 0.0.0.0/0 table 1 via 192.168.72.1 tap0
+
+upf pfcp endpoint ip 192.168.70.201 vrf 0
+
+upf node-id fqdn vpp-upf.node.5gcn.mnc95.mcc208.3gppnetwork.org
+
+upf nwi name access vrf 1
+upf nwi name sgi vrf 1 
+
+upf specification release 16
+
+upf gtpu endpoint ip 192.168.72.201 nwi sgi teid 0x000004d2/1

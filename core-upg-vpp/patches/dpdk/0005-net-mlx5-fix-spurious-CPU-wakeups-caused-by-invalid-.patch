@@ -1,0 +1,50 @@
+From 8961a93b885b55409ea64a68506f8db2c4bc4f2e Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Mon, 20 Oct 2025 08:10:25 +0000
+Subject: [PATCH 5/5] net/mlx5: fix spurious CPU wakeups caused by invalid CQE
+
+Previously, the PMD used a common monitor callback to determine
+CQE ownership for power-aware polling. However, when a CQE contained
+an invalid opcode(MLX5_CQE_INVALID), ownership bit was not reliable.
+As a result, the monitor condition could falsely indicate CQE
+availability and cause the CPU to wake up unnecessarily during
+low traffic periods.
+
+This resulted in spurious wakeups in monitor-wait mode and reduced
+the expected power savings, as cores exited the sleep state even
+when no valid CQEs were available.
+
+This patch skips invalid CQEs in the callback and optimizes power
+efficiency by preventing false wakeups caused by hardware-owned or
+invalid entries.
+
+Fixes: a8f0df6bf98d ("net/mlx5: support power monitoring")
+Cc: akozyrev@nvidia.com
+Cc: stable@dpdk.org
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ drivers/net/mlx5/mlx5_rx.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/mlx5/mlx5_rx.c b/drivers/net/mlx5/mlx5_rx.c
+index bb3ccc36e5..dab07c1713 100644
+--- a/drivers/net/mlx5/mlx5_rx.c
++++ b/drivers/net/mlx5/mlx5_rx.c
+@@ -286,8 +286,12 @@ mlx5_monitor_callback(const uint64_t value,
+ {
+ 	const uint64_t m = opaque[CLB_MSK_IDX];
+ 	const uint64_t v = opaque[CLB_VAL_IDX];
++	const uint64_t match = ((value & m) == v);
++	const uint64_t opcode = MLX5_CQE_OPCODE(value);
++	const uint64_t valid_op = (opcode ^ MLX5_CQE_INVALID);
+ 
+-	return (value & m) == v ? -1 : 0;
++	/* ownership bit is not valid for invalid opcode; CQE is HW owned */
++	return -(match & valid_op);
+ }
+ 
+ int mlx5_get_monitor_addr(void *rx_queue, struct rte_power_monitor_cond *pmc)
+-- 
+2.34.1
+

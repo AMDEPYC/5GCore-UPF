@@ -1,0 +1,50 @@
+From 1d0ebef929563d63b4189710bc60dfaedad27835 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Sun, 19 Oct 2025 16:31:38 +0000
+Subject: [PATCH 01/11] build: fix build on Ubuntu 22.10
+
+This patch addresses build issues on Ubuntu 22.10
+
+1. Disable the SRTP plugin due to incompatibility
+   with libsrtp2 API changesi.
+2. Fix ignoring return value of std::remove in vapi
+   unregister_request:
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/plugins/CMakeLists.txt | 6 +++++-
+ src/vpp-api/vapi/vapi.hpp  | 3 ++-
+ 2 files changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/src/plugins/CMakeLists.txt b/src/plugins/CMakeLists.txt
+index e54eaa2c4..c9ae40228 100644
+--- a/src/plugins/CMakeLists.txt
++++ b/src/plugins/CMakeLists.txt
+@@ -25,5 +25,9 @@ FILE(GLOB files RELATIVE
+ )
+ foreach (f ${files})
+   get_filename_component(dir ${f} DIRECTORY)
+-  add_subdirectory(${dir})
++  if (NOT dir STREQUAL "srtp")
++    add_subdirectory(${dir})
++  else()
++    message(STATUS "Skipping srtp plugin due to libsrtp2 compatibility issues")
++  endif()
+ endforeach()
+diff --git a/src/vpp-api/vapi/vapi.hpp b/src/vpp-api/vapi/vapi.hpp
+index a1e33a93f..0305dbaf1 100644
+--- a/src/vpp-api/vapi/vapi.hpp
++++ b/src/vpp-api/vapi/vapi.hpp
+@@ -417,7 +417,8 @@ private:
+   void unregister_request (Common_req *request)
+   {
+     std::lock_guard<std::recursive_mutex> lock (requests_mutex);
+-    std::remove (requests.begin (), requests.end (), request);
++    auto new_end = std::remove(requests.begin(), requests.end(), request);
++    requests.erase(new_end, requests.end());
+   }
+ 
+   template <typename M> void register_event (Event_registration<M> *event)
+-- 
+2.34.1
+

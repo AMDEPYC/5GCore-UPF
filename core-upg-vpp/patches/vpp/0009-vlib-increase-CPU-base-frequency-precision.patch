@@ -1,0 +1,36 @@
+From fa18d8d18b0a5aa8cc85c3fcc00b637d2460562a Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 21 Oct 2025 05:32:07 +0000
+Subject: [PATCH 09/11] vlib: increase CPU base frequency precision
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Updated the 'show cpu' CLI command to print the
+base frequency with 4 decimal places instead of 2
+(e.g., 2.69 GHz → 2.6945 GHz) for improved accuracy
+when inspecting CPU timing characteristics
+
+Type: improvement
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/vlib/cli.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/vlib/cli.c b/src/vlib/cli.c
+index c43371e0d..1482e9d63 100644
+--- a/src/vlib/cli.c
++++ b/src/vlib/cli.c
+@@ -994,7 +994,7 @@ show_cpu (vlib_main_t * vm, unformat_input_t * input,
+   _("Model name", "%U", format_cpu_model_name);
+   _("Microarch model (family)", "%U", format_cpu_uarch);
+   _("Flags", "%U", format_cpu_flags);
+-  _("Base frequency", "%.2f GHz",
++  _("Base frequency", "%.4f GHz",
+     ((f64) vm->clib_time.clocks_per_second) * 1e-9);
+ #undef _
+   return 0;
+-- 
+2.34.1
+

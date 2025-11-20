@@ -1,0 +1,37 @@
+diff --git a/src/plugins/CMakeLists.txt b/src/plugins/CMakeLists.txt
+index e54eaa2c4..cd4b524d7 100644
+--- a/src/plugins/CMakeLists.txt
++++ b/src/plugins/CMakeLists.txt
+@@ -19,11 +19,18 @@ include_directories (
+ ##############################################################################
+ # find and add all plugin subdirs
+ ##############################################################################
++set(ALLOWED_PLUGINS "dpdk" "upf")
++
+ FILE(GLOB files RELATIVE
+   ${CMAKE_CURRENT_SOURCE_DIR}
+   ${CMAKE_CURRENT_SOURCE_DIR}/*/CMakeLists.txt
+ )
+ foreach (f ${files})
+   get_filename_component(dir ${f} DIRECTORY)
+-  add_subdirectory(${dir})
++  IF(${dir} IN_LIST ALLOWED_PLUGINS)
++          message("Adding sudirectory -> " ${dir})
++          add_subdirectory(${dir})
++  ENDIF()
++  #add_subdirectory(${dir})
+ endforeach()
++
+
+--- vpp/src/plugins/upf/upf_pfcp.c.orig 2023-11-16 22:22:44.420165656 +0100
++++ vpp/src/plugins/upf/upf_pfcp.c      2023-11-16 22:23:32.924407990 +0100
+@@ -1583,7 +1583,8 @@
+        upf_nwi_t *nwi = pool_elt_at_index (gtm->nwis, pdr->pdi.nwi_index);
+        sw_if_index = nwi->sw_if_index;
+       }
+-
++    sw_if_index = 1; /* workaround */ 
++       
+     /* create UE IP route from SGi Network Instance into Session */
+
+     /*

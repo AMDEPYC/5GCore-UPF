@@ -1,0 +1,33 @@
+From 6a6e0acbc01ab52806f8c9b70f19221812f48a89 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Sun, 19 Oct 2025 19:35:09 +0000
+Subject: [PATCH 2/4] Reduce default flowtable size for memory alloc issues
+
+Previously, default size caused the UPF plugin to
+attempt very large memory allocations leading to
+out-of-memory errors and crashes during init.
+
+Reducing the default size ensures the flowtable
+fits within reasonable memory limits.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ upf/flowtable.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/upf/flowtable.h b/upf/flowtable.h
+index 123f32f..4bfab6d 100644
+--- a/upf/flowtable.h
++++ b/upf/flowtable.h
+@@ -273,7 +273,7 @@ typedef struct
+   u32 next_check;
+ } flowtable_main_per_cpu_t;
+ 
+-#define FLOWTABLE_DEFAULT_LOG2_SIZE 22
++#define FLOWTABLE_DEFAULT_LOG2_SIZE 14
+ 
+ typedef struct
+ {
+-- 
+2.34.1
+

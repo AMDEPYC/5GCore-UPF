@@ -1,0 +1,29 @@
+From 5893c6e7280b2f08c25bd15e92b0b36118caec0d Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 21 Oct 2025 00:37:04 +0000
+Subject: [PATCH 04/11] build: enable DPDK power library
+
+Remove the power library from the DPDK_LIBS_DISABLED
+list in dpdk.mk to enable frequency scaling and
+core state control.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ build/external/packages/dpdk.mk | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/build/external/packages/dpdk.mk b/build/external/packages/dpdk.mk
+index 9519b2845..b70cb7b90 100644
+--- a/build/external/packages/dpdk.mk
++++ b/build/external/packages/dpdk.mk
+@@ -97,7 +97,6 @@ DPDK_LIBS_DISABLED := acl,				\
+ 	node,								\
+ 	pipeline,							\
+ 	port,								\
+-	power,								\
+ 	rawdev,								\
+ 	rib,								\
+ 	table
+-- 
+2.34.1
+

@@ -1,0 +1,98 @@
+#!/bin/bash
+
+# Configurable variables
+NUM_SESSIONS=${1:-64}
+
+IFACE="n4"
+LOCAL_IP="192.168.70.1"
+REMOTE_IP="192.168.70.201"
+PFCP_SESSIONS="/5gupf/scripts/pfcp_sim/pfcp_sessions_with_urr.yaml"
+PFCP_PORT=10000
+PFCP_REMOTE_PORT=8805
+SLEEP_INTERVAL=15   # seconds between interface/session checks
+LOG_FILE="pfcpclient_monitor.log"
+
+/5gupf/scripts/pfcp_sim/session_gen.py $NUM_SESSIONS $PFCP_SESSIONS
+
+# Assign IP to n4 (idempotent)
+ifconfig $IFACE $LOCAL_IP/24 up
+
+# Kill any leftover pfcpclient processes
+pkill pfcpclient 2>/dev/null || true
+
+# Path to your VPP startup config
+CONF_FILE="/etc/startup*.conf"
+
+# Extract the cli-listen path
+CLI_SOCK=$(grep -oP 'cli-listen\s+\K\S+' $CONF_FILE)
+
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') | $*"
+}
+
+while true; do
+    # Wait until interface is up
+    until ip link show $IFACE &>/dev/null && ip addr show $IFACE | grep -q "UP"; do
+        log "Interface $IFACE is down. Waiting $SLEEP_INTERVAL s..."
+        sleep $SLEEP_INTERVAL
+        pkill vpp
+        sleep 5
+	vpp -c /etc/startup*.conf
+        pkill pfcpclient 2>/dev/null || true
+        # Wait for UDP ports to be released
+        for i in {1..10}; do
+            if ! ss -u -lpn | grep -qE ":$PFCP_PORT|:$PFCP_REMOTE_PORT"; then
+                break
+            fi
+            log "Waiting for UDP ports $PFCP_PORT/$PFCP_REMOTE_PORT to be free..."
+            sleep 2
+        done
+    done
+
+    sudo fuser -k -n udp $PFCP_PORT
+    sudo fuser -k -n udp $PFCP_REMOTE_PORT   
+    vppctl -s $CLI_SOCK set interface state n3 down
+    vppctl -s $CLI_SOCK set interface state n3 down
+    log "Interface $IFACE is up. Starting pfcpclient..."
+    /5gupf/scripts/pfcp_sim/pfcpclient -l $LOCAL_IP:$PFCP_PORT -r $REMOTE_IP:$PFCP_REMOTE_PORT -s $PFCP_SESSIONS &
+    PFCP_PID=$!
+    sleep $SLEEP_INTERVAL
+    vppctl -s $CLI_SOCK set interface state n3 up
+    vppctl -s $CLI_SOCK set interface state n3 up
+
+    # Check VPP CLI socket was found for UPF session monitoring
+    if [[ -z "$CLI_SOCK" ]]; then
+        echo "Error: cli-listen path not found in $CONF_FILE"
+        exit 1
+    fi
+
+    # Monitor pfcpclient and interface status
+    while kill -0 $PFCP_PID 2>/dev/null; do
+        # Check interface
+        if ! ip addr show $IFACE | grep -q "UP"; then
+            log "Interface $IFACE went down. Killing pfcpclient..."
+            pkill pfcpclient 2>/dev/null || true
+            kill $PFCP_PID
+            wait $PFCP_PID 2>/dev/null
+            PFCP_PID=""
+	    sleep 5
+            break
+        fi
+
+        # Check UPF sessions
+        SESSION_OUTPUT=$(vppctl -s $CLI_SOCK sh upf session)
+        if [[ -z "$SESSION_OUTPUT" || "$SESSION_OUTPUT" == *"No sessions"* ]]; then
+            log "WARNING: UPF sessions missing. Restarting pfcpclient..."
+            pkill pfcpclient 2>/dev/null || true
+            kill $PFCP_PID
+            wait $PFCP_PID 2>/dev/null
+            PFCP_PID=""
+	    sleep 5
+	    break
+        fi
+
+        sleep $SLEEP_INTERVAL
+    done
+
+    log "pfcpclient stopped. Checking $IFACE again..."
+done

@@ -1,0 +1,34 @@
+From 5d3ba95a8bdabc16dd93a641b8bde82912dcbff0 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Thu, 23 Oct 2025 06:36:47 +0000
+Subject: [PATCH 3/4] upf/pfcp: force sw_if_index to N3 as temporary workaround
+
+The sw_if_index from the Network Instance (NWI) sometimes points
+to logical interfaces (upf-nwi-access/upf-nwi-sgi), causing PFCP
+route failures. For now, force sw_if_index = 1 (N3 interface) to
+restore packet forwarding in both uplink and downlink.
+
+This is a temporary workaround until the NWI-to-physical interface
+mapping is fixed.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ upf/upf_pfcp.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/upf/upf_pfcp.c b/upf/upf_pfcp.c
+index 68e71ac..8603348 100644
+--- a/upf/upf_pfcp.c
++++ b/upf/upf_pfcp.c
+@@ -1940,6 +1940,8 @@ build_pfcp_rules (upf_session_t *sx)
+           sw_if_index = nwi->sw_if_index;
+         }
+ 
++      sw_if_index = 1; /* workaround */
++
+       /* create UE IP route from SGi Network Instance into Session */
+ 
+       /*
+-- 
+2.34.1
+

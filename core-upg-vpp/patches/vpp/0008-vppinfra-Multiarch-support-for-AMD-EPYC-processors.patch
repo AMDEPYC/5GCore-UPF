@@ -1,0 +1,112 @@
+From 7a35d275bc2f958b2f42415b2b45fb25ebe584fe Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 21 Oct 2025 05:30:20 +0000
+Subject: [PATCH 08/11] vppinfra: Multiarch support for AMD EPYC processors
+
+Type: feature
+
+- Added multiarch support for AMD Zen architectures
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/cmake/cpu.cmake | 14 ++++++++++++++
+ src/vppinfra/cpu.h  | 33 +++++++++++++++++++++++++++++++--
+ 2 files changed, 45 insertions(+), 2 deletions(-)
+
+diff --git a/src/cmake/cpu.cmake b/src/cmake/cpu.cmake
+index 7fb7b5918..91f28f002 100644
+--- a/src/cmake/cpu.cmake
++++ b/src/cmake/cpu.cmake
+@@ -126,16 +126,30 @@ elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "amd64.*|x86_64.*|AMD64.*")
+     OFF
+   )
+ 
++  add_vpp_march_variant(znver3
++    FLAGS -march=znver3 -mtune=znver3 -mprefer-vector-width=256
++    OFF
++  )
++
+   if (GNU_ASSEMBLER_AVX512_BUG)
+      message(WARNING "AVX-512 multiarch variant(s) disabled due to GNU Assembler bug")
+   else()
+     add_vpp_march_variant(skx
+       FLAGS -march=skylake-avx512 -mtune=skylake-avx512 -mprefer-vector-width=256
++      OFF
+     )
+ 
+     add_vpp_march_variant(icl
+       FLAGS -march=icelake-client -mtune=icelake-client -mprefer-vector-width=512
+     )
++
++    add_vpp_march_variant(znver4
++      FLAGS -march=znver4 -mtune=znver4 -mprefer-vector-width=512
++    )
++
++    add_vpp_march_variant(znver4
++      FLAGS -march=znver5 -mtune=znver5 -mprefer-vector-width=512
++    )
+   endif()
+ elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "^(aarch64.*|AARCH64.*)")
+   set(VPP_DEFAULT_MARCH_FLAGS -march=armv8-a+crc)
+diff --git a/src/vppinfra/cpu.h b/src/vppinfra/cpu.h
+index f0b10e23a..b9d6ebf01 100644
+--- a/src/vppinfra/cpu.h
++++ b/src/vppinfra/cpu.h
+@@ -24,7 +24,10 @@
+   _ (hsw, "Intel Haswell")                                                    \
+   _ (trm, "Intel Tremont")                                                    \
+   _ (skx, "Intel Skylake (server) / Cascade Lake")                            \
+-  _ (icl, "Intel Ice Lake")
++  _ (icl, "Intel Ice Lake")						      \
++  _ (znver3, "AMD Milan")                                                     \
++  _ (znver4, "AMD Genoa")						      \
++  _ (znver5, "AMD Turin")
+ #elif defined(__aarch64__)
+ #define foreach_march_variant                                                 \
+   _ (octeontx2, "Marvell Octeon TX2")                                         \
+@@ -141,8 +144,10 @@ _CLIB_MARCH_FN_REGISTRATION(fn)
+   _ (avx512_vpopcntdq, 7, ecx, 14)                                            \
+   _ (movdiri, 7, ecx, 27)                                                     \
+   _ (movdir64b, 7, ecx, 28)                                                   \
++  _ (avx512_vp2intersect, 7, edx, 8)                                          \
+   _ (avx512_fp16, 7, edx, 23)                                                 \
+-  _ (invariant_tsc, 0x80000007, edx, 8)
++  _ (invariant_tsc, 0x80000007, edx, 8)                                       \
++  _ (monitorx, 0x80000001, ecx, 29)
+ 
+ #define foreach_aarch64_flags \
+ _ (fp,          0) \
+@@ -273,6 +278,30 @@ clib_cpu_march_priority_hsw ()
+   return -1;
+ }
+ 
++static inline int
++clib_cpu_march_priority_znver5 ()
++{
++  if (clib_cpu_supports_avx512_vp2intersect () && clib_cpu_supports_monitorx ())
++    return 300;
++  return -1;
++}
++
++static inline int
++clib_cpu_march_priority_znver4 ()
++{
++  if (clib_cpu_supports_avx512_bitalg () && clib_cpu_supports_monitorx ())
++    return 250;
++  return -1;
++}
++
++static inline int
++clib_cpu_march_priority_znver3 ()
++{
++  if (clib_cpu_supports_avx2 () && clib_cpu_supports_monitorx ())
++    return 70;
++  return -1;
++}
++
+ #define X86_CPU_ARCH_PERF_FUNC 0xA
+ 
+ static inline int
+-- 
+2.34.1
+

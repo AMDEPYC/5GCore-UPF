@@ -1,0 +1,96 @@
+From 9029c63709f11f3c52a4c5c1eb4173067c516df8 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Wed, 29 Oct 2025 09:50:44 +0000
+Subject: [PATCH 12/12] Makefile: make install-dep non-interactive across
+ supported distros
+
+This patch updates the install-dep target to support fully
+non-interactive package installation across Debian, Ubuntu, RHEL,
+CentOS, Fedora and openSUSE environments.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ Makefile | 54 ++++++++++++++++++++++++++++++------------------------
+ 1 file changed, 30 insertions(+), 24 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 4d3ba7578..6cbf1155b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -309,37 +309,43 @@ bootstrap:
+ .PHONY: install-dep
+ install-dep:
+ ifeq ($(filter ubuntu debian,$(OS_ID)),$(OS_ID))
+-	@sudo -E apt-get update
+-	@sudo -E apt-get $(APT_ARGS) $(CONFIRM) $(FORCE) install $(DEB_DEPENDS)
++	@echo "Installing dependencies (Debian/Ubuntu)..."
++	@DEBIAN_FRONTEND=noninteractive apt-get -q update
++	@DEBIAN_FRONTEND=noninteractive apt-get -q -y --no-install-recommends install $(DEB_DEPENDS)
+ else ifneq ("$(wildcard /etc/redhat-release)","")
+ ifeq ($(OS_ID),rhel)
+-	@sudo -E yum-config-manager --enable rhel-server-rhscl-7-rpms
+-	@sudo -E yum groupinstall $(CONFIRM) $(RPM_DEPENDS_GROUPS)
+-	@sudo -E yum install $(CONFIRM) $(RPM_DEPENDS)
+-	@sudo -E debuginfo-install $(CONFIRM) glibc openssl-libs zlib
++	@echo "Installing dependencies (RHEL)..."
++	@yum-config-manager --enable rhel-server-rhscl-7-rpms || true
++	@yum -y -q groupinstall $(RPM_DEPENDS_GROUPS)
++	@yum -y -q install $(RPM_DEPENDS)
++	@debuginfo-install -y -q glibc openssl-libs zlib || true
+ else ifeq ($(OS_ID)-$(OS_VERSION_ID),centos-8)
+-	@sudo -E dnf install $(CONFIRM) dnf-plugins-core epel-release
+-	@sudo -E dnf config-manager --set-enabled \
+-          $(shell dnf repolist all 2>/dev/null|grep -i powertools|cut -d' ' -f1|grep -v source)
+-	@sudo -E dnf groupinstall $(CONFIRM) $(RPM_DEPENDS_GROUPS)
+-	@sudo -E dnf install --skip-broken $(CONFIRM) $(RPM_DEPENDS)
++	@echo "Installing dependencies (CentOS 8)..."
++	@dnf -y -q install dnf-plugins-core epel-release
++	@dnf config-manager --set-enabled \
++		$(shell dnf repolist all 2>/dev/null|grep -i powertools|cut -d' ' -f1|grep -v source) || true
++	@dnf -y -q groupinstall $(RPM_DEPENDS_GROUPS)
++	@dnf -y -q --skip-broken install $(RPM_DEPENDS)
+ else ifeq ($(OS_ID),centos)
+-	@sudo -E yum install $(CONFIRM) centos-release-scl-rh epel-release
+-	@sudo -E yum groupinstall $(CONFIRM) $(RPM_DEPENDS_GROUPS)
+-	@sudo -E yum install $(CONFIRM) $(RPM_DEPENDS)
+-	@sudo -E yum install $(CONFIRM) --enablerepo=base-debuginfo $(RPM_DEPENDS_DEBUG)
++	@echo "Installing dependencies (CentOS 7)..."
++	@yum -y -q install centos-release-scl-rh epel-release
++	@yum -y -q groupinstall $(RPM_DEPENDS_GROUPS)
++	@yum -y -q install $(RPM_DEPENDS)
++	@yum -y -q install --enablerepo=base-debuginfo $(RPM_DEPENDS_DEBUG) || true
+ else ifeq ($(OS_ID),fedora)
+-	@sudo -E dnf groupinstall $(CONFIRM) $(RPM_DEPENDS_GROUPS)
+-	@sudo -E dnf install $(CONFIRM) $(RPM_DEPENDS)
+-	@sudo -E debuginfo-install $(CONFIRM) glibc openssl-libs zlib
++	@echo "Installing dependencies (Fedora)..."
++	@dnf -y -q groupinstall $(RPM_DEPENDS_GROUPS)
++	@dnf -y -q install $(RPM_DEPENDS)
++	@debuginfo-install -y -q glibc openssl-libs zlib || true
+ endif
+-else ifeq ($(filter opensuse-leap-15.3 opensuse-leap-15.4 ,$(OS_ID)-$(OS_VERSION_ID)),$(OS_ID)-$(OS_VERSION_ID))
+-	@sudo -E zypper refresh
+-	@sudo -E zypper install  -y $(RPM_SUSE_DEPENDS)
++else ifeq ($(filter opensuse-leap-15.3 opensuse-leap-15.4,$(OS_ID)-$(OS_VERSION_ID)),$(OS_ID)-$(OS_VERSION_ID))
++	@echo "Installing dependencies (openSUSE)..."
++	@zypper --non-interactive --quiet refresh
++	@zypper --non-interactive --quiet install -y $(RPM_SUSE_DEPENDS)
+ else
+-	$(error "This option currently works only on Ubuntu, Debian, RHEL, CentOS or openSUSE-leap systems")
++	$(error "This option currently works only on Ubuntu, Debian, RHEL, CentOS, Fedora or openSUSE-leap systems")
+ endif
+-	git config commit.template .git_commit_template.txt
++	@git config commit.template .git_commit_template.txt
+ 
+ .PHONY: install-deps
+ install-deps: install-dep
+@@ -763,4 +769,4 @@ endif
+ 
+ .PHONY: check-dpdk-mlx
+ check-dpdk-mlx:
+-	@[ $$(make -sC build/external dpdk-show-DPDK_MLX_DEFAULT) = y ]
+\ No newline at end of file
++	@[ $$(make -sC build/external dpdk-show-DPDK_MLX_DEFAULT) = y ]
+-- 
+2.34.1
+

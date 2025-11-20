@@ -1,0 +1,75 @@
+From b291cd06ff06a24fee82e05ca8e76786776b665a Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Sun, 19 Oct 2025 16:36:06 +0000
+Subject: [PATCH 1/4] build: add multiarch lib path support for Ubuntu 22.10
+
+On Ubuntu 22.10 and other Debian-based systems using multiarch,
+libraries are installed in the `lib/x86_64-linux-gnu` directory
+instead of the standard `lib` or `lib64`.
+
+This patch updates the `PATH_SUFFIXES` in `cmake/FindVPP.cmake`
+for various VPP libraries to also search `lib/x86_64-linux-gnu`.
+This ensures that the CMake find_library calls locate the VPP
+libraries correctly on multiarch systems.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ cmake/FindVPP.cmake | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/cmake/FindVPP.cmake b/cmake/FindVPP.cmake
+index 7d8d16d..c37bbe7 100644
+--- a/cmake/FindVPP.cmake
++++ b/cmake/FindVPP.cmake
+@@ -28,42 +28,42 @@ find_path(VPP_INCLUDE_DIR vnet/vnet.h
+ find_library(VPP_LIBRARY_MEMORYCLIENT
+   NAMES vlibmemoryclient
+   HINTS ${VPP_SEARCH_PATH_LIST}
+-  PATH_SUFFIXES lib lib64
++  PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
+   DOC "Find the Vpp Memoryclient library"
+ )
+ 
+ find_library(VPP_LIBRARY_SVM
+   NAMES svm
+   HINTS ${VPP_SEARCH_PATH_LIST}
+-  PATH_SUFFIXES lib lib64
++  PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
+   DOC "Find the Vpp svm library"
+ )
+ 
+ find_library(VPP_LIBRARY_INFRA
+   NAMES vppinfra
+   HINTS ${VPP_SEARCH_PATH_LIST}
+-  PATH_SUFFIXES lib lib64
++  PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
+   DOC "Find the Vpp infra library"
+ )
+ 
+ find_library(VPP_LIBRARY_VATPLUGIN
+   NAMES vatplugin
+   HINTS ${VPP_SEARCH_PATH_LIST}
+-  PATH_SUFFIXES lib lib64
++  PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
+   DOC "Find the Vpp vatplugin library"
+ )
+ 
+ find_library(VPP_LIBRARY_VLIB
+   NAMES vlib
+   HINTS ${VPP_SEARCH_PATH_LIST}
+-  PATH_SUFFIXES lib lib64
++  PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
+   DOC "Find the Vpp vlib library"
+ )
+ 
+ find_library(VPP_LIBRARY_VPPAPICLIENT
+   NAMES vppapiclient
+   HINTS ${VPP_SEARCH_PATH_LIST}
+-  PATH_SUFFIXES lib lib64
++  PATH_SUFFIXES lib lib64 lib/x86_64-linux-gnu
+   DOC "Find the Vpp vlib library"
+ )
+ 
+-- 
+2.34.1
+

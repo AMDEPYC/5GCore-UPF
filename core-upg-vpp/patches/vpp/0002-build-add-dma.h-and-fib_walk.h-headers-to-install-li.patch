@@ -1,0 +1,42 @@
+From 8c7042e01ada896db0cabcd803fdada617c43f74 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Sun, 19 Oct 2025 16:33:40 +0000
+Subject: [PATCH 02/11] build: add dma.h and fib_walk.h headers to install
+ lists
+
+These headers are required to build the UPG VPP plugin.
+Without adding these headers, builds fail due to missing includes.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/vlib/CMakeLists.txt | 1 +
+ src/vnet/CMakeLists.txt | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/src/vlib/CMakeLists.txt b/src/vlib/CMakeLists.txt
+index 69bd18b6d..ca8c27b07 100644
+--- a/src/vlib/CMakeLists.txt
++++ b/src/vlib/CMakeLists.txt
+@@ -122,6 +122,7 @@ add_vpp_library(vlib
+   counter.h
+   counter_types.h
+   defs.h
++  dma/dma.h
+   error_funcs.h
+   error.h
+   format_funcs.h
+diff --git a/src/vnet/CMakeLists.txt b/src/vnet/CMakeLists.txt
+index ef187dc2f..ea2b7d0bc 100644
+--- a/src/vnet/CMakeLists.txt
++++ b/src/vnet/CMakeLists.txt
+@@ -1224,6 +1224,7 @@ list(APPEND VNET_HEADERS
+   fib/fib_path_list.h
+   fib/fib_sas.h
+   fib/fib_source.h
++  fib/fib_walk.h
+ )
+ 
+ list(APPEND VNET_API_FILES
+-- 
+2.34.1
+

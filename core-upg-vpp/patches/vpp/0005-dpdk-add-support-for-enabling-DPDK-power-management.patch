@@ -1,0 +1,126 @@
+From acba6680a85f285aab7ee44ccd233ca2184ebf04 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 21 Oct 2025 01:20:09 +0000
+Subject: [PATCH 05/11] dpdk: add support for enabling DPDK power management
+
+This patch adds a new `pmd-mgmt` configuration parameter
+to enable DPDK power management and specify its mode.
+When enabled, `rte_power_ethdev_pmgmt_queue_enable()`
+is invoked to activate the selected power management mode.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/plugins/dpdk/device/dpdk.h |  5 ++++
+ src/plugins/dpdk/device/init.c | 45 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 50 insertions(+)
+
+diff --git a/src/plugins/dpdk/device/dpdk.h b/src/plugins/dpdk/device/dpdk.h
+index 02cf6812d..33e12510c 100644
+--- a/src/plugins/dpdk/device/dpdk.h
++++ b/src/plugins/dpdk/device/dpdk.h
+@@ -28,6 +28,7 @@
+ #include <rte_ethdev.h>
+ #include <rte_version.h>
+ #include <rte_net.h>
++#include <rte_power_pmd_mgmt.h>
+ 
+ #include <vnet/devices/devices.h>
+ 
+@@ -331,6 +332,10 @@ typedef struct
+   /* logging */
+   vlib_log_class_t log_default;
+   vlib_log_class_t log_cryptodev;
++
++  /* Enable/disable DPDK power‑management */
++  u8 dpdk_pm_enabled;
++  enum rte_power_pmd_mgmt_type dpdk_pm_mode;
+ } dpdk_main_t;
+ 
+ extern dpdk_main_t dpdk_main;
+diff --git a/src/plugins/dpdk/device/init.c b/src/plugins/dpdk/device/init.c
+index 34e8c2fc6..d2cdadd72 100644
+--- a/src/plugins/dpdk/device/init.c
++++ b/src/plugins/dpdk/device/init.c
+@@ -463,6 +463,21 @@ dpdk_lib_init (dpdk_main_t * dm)
+ 	      dpdk_rx_queue_t *rxq = vec_elt_at_index (xd->rx_queues, q);
+ 	      rxq->queue_index = vnet_hw_if_register_rx_queue (
+ 		vnm, xd->hw_if_index, q++, vdm->first_worker_thread_index + j);
++	      if (dm->dpdk_pm_enabled)
++	        {
++	          if (rte_power_ethdev_pmgmt_queue_enable(
++					  vdm->first_worker_thread_index + j,
++					  xd->port_id, q,
++					  dm->dpdk_pm_mode) != 0)
++	              dpdk_log_warn ("DPDK PM failed to enable on port %U"
++				     " queue %U mode %U\n",
++				     xd->port_id, q, dm->dpdk_pm_mode);
++		  else
++		      vlib_log_info(dm->log_default,
++		                   "DPDK PM initialization: enabled mode %u"
++				   " port %u queue %u", dm->dpdk_pm_mode,
++				   xd->port_id, q);
++		}
+ 	    }
+ 	}
+       else
+@@ -803,6 +818,25 @@ error:
+   return 0;
+ }
+ 
++uword
++unformat_dpdk_pm_mode (unformat_input_t *input, va_list *va)
++{
++  uword *pm_mode = va_arg (*va, uword *);
++
++  if (unformat (input, "monitor"))
++    {
++      *pm_mode = RTE_POWER_MGMT_TYPE_MONITOR;
++      return 1;
++    }
++  else if (unformat (input, "pause"))
++    {
++      *pm_mode = RTE_POWER_MGMT_TYPE_PAUSE;
++      return 1;
++    }
++
++  return 0;
++}
++
+ static clib_error_t *
+ dpdk_device_config (dpdk_config_main_t *conf, void *addr,
+ 		    dpdk_device_addr_type_t addr_type, unformat_input_t *input,
+@@ -1037,6 +1071,9 @@ dpdk_config (vlib_main_t * vm, unformat_input_t * input)
+       else if (unformat (input, "max-simd-bitwidth %U",
+ 			 unformat_max_simd_bitwidth, &conf->max_simd_bitwidth))
+ 	;
++      else if (unformat (input, "pmd-mgmt %U",
++			     unformat_dpdk_pm_mode, &dm->dpdk_pm_mode))
++	dm->dpdk_pm_enabled = 1;
+       else if (unformat (input, "dev default %U", unformat_vlib_cli_sub_input,
+ 			 &sub_input))
+ 	{
+@@ -1351,6 +1388,11 @@ dpdk_config (vlib_main_t * vm, unformat_input_t * input)
+   if ((error = dpdk_buffer_pools_create (vm)))
+     return error;
+ 
++  if (dm->dpdk_pm_enabled)
++	  vlib_log_info(dm->log_default, "DPDK PM enabled: mode = %u", dm->dpdk_pm_mode);
++  else
++	  vlib_log_info(dm->log_default, "DPDK PM disabled (default)");
++
+   return 0;
+ }
+ 
+@@ -1534,6 +1576,9 @@ dpdk_init (vlib_main_t * vm)
+   dm->log_default = vlib_log_register_class ("dpdk", 0);
+   dm->log_cryptodev = vlib_log_register_class ("dpdk", "cryptodev");
+ 
++  dm->dpdk_pm_enabled = 0; /* disabled by default */
++  dm->dpdk_pm_mode = RTE_POWER_MGMT_TYPE_MONITOR;  /* default */
++
+   return error;
+ }
+ 
+-- 
+2.34.1
+

@@ -1,0 +1,32 @@
+From 21ac875a6e30ebdd3462a4b63bc1db03fbdc6873 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 28 Oct 2025 15:45:10 +0000
+Subject: [PATCH 11/11] dpdk: fixed max lcores for AMD EPYC platforms
+
+Type: fix
+
+This patch enables max lcores for AMD EPYC processors with high core count.
+Without this patch, only cores on socket 0 are detected and only one numa
+node is detected resulted in buffer allocation failure on socket 1 when
+dpdk plugin is enabled.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ build/external/packages/dpdk.mk | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/build/external/packages/dpdk.mk b/build/external/packages/dpdk.mk
+index b70cb7b90..496410fcc 100644
+--- a/build/external/packages/dpdk.mk
++++ b/build/external/packages/dpdk.mk
+@@ -167,6 +167,7 @@ DPDK_MESON_ARGS = \
+ 	"-Ddisable_libs=$(DPDK_LIBS_DISABLED)" \
+ 	-Db_pie=true \
+ 	-Dmachine=$(DPDK_MACHINE) \
++	-Dmax_lcores=512 \
+ 	--buildtype=$(DPDK_BUILD_TYPE) \
+ 	${DPDK_MLX_CONFIG_FLAG}
+ 
+-- 
+2.34.1
+

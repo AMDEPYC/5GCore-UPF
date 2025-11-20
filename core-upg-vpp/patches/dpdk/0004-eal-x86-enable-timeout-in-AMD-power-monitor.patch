@@ -1,0 +1,41 @@
+From 220a2694c55b13ceca2b6fb53bd19b5c1240d15c Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Mon, 20 Oct 2025 08:02:39 +0000
+Subject: [PATCH 4/5] eal/x86: enable timeout in AMD power monitor
+
+Previously, the AMD power monitor implementation did not enable the
+timeout, causing the lcore to remain in a wait state until an external
+monitoring event occurred or an interrupt was received.
+
+This patch enables the timeout-based exit condition, allowing
+the lcore to automatically wake up after the specified period.
+The maximum supported timeout value is 2^32 - 1.
+
+Fixes: c7ed1ce04704 ("eal/x86: add power intrinsics for AMD")
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ lib/eal/x86/rte_power_intrinsics.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/lib/eal/x86/rte_power_intrinsics.c b/lib/eal/x86/rte_power_intrinsics.c
+index eca179ab59..339c90e5d1 100644
+--- a/lib/eal/x86/rte_power_intrinsics.c
++++ b/lib/eal/x86/rte_power_intrinsics.c
+@@ -60,11 +60,11 @@ static void amd_monitorx(volatile void *addr)
+ 
+ static void amd_mwaitx(const uint64_t timeout)
+ {
+-	RTE_SET_USED(timeout);
+ 	asm volatile(".byte 0x0f, 0x01, 0xfb;"
+ 			: /* ignore rflags */
+ 			: "a"(0), /* enter C1 */
+-			"c"(0)); /* no time-out */
++			"b"((uint32_t)timeout),
++			"c"(2)); /* enable time-out */
+ }
+ 
+ static struct {
+-- 
+2.34.1
+

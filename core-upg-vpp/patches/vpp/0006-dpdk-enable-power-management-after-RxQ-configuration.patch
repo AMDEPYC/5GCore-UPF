@@ -1,0 +1,72 @@
+From f0623ccb5ba1254dd912ae733b467f7097eb0435 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Tue, 21 Oct 2025 03:25:02 +0000
+Subject: [PATCH 06/11] dpdk: enable power management after RxQ configuration
+
+This patch moves the `rte_power_ethdev_pmgmt_queue_enable()`
+call from the interface registration stage to after the
+RX queue setup.
+
+This ensures power management is enabled only after the RxQ
+is fully initialized, aligning with DPDK API expectation.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ src/plugins/dpdk/device/common.c | 14 ++++++++++++++
+ src/plugins/dpdk/device/init.c   | 15 ---------------
+ 2 files changed, 14 insertions(+), 15 deletions(-)
+
+diff --git a/src/plugins/dpdk/device/common.c b/src/plugins/dpdk/device/common.c
+index b8c6eddd3..734631a91 100644
+--- a/src/plugins/dpdk/device/common.c
++++ b/src/plugins/dpdk/device/common.c
+@@ -247,6 +247,20 @@ retry:
+ 
+       if (rv < 0)
+ 	dpdk_device_error (xd, "rte_eth_rx_queue_setup", rv);
++
++      {
++        dpdk_main_t *dm = &dpdk_main;
++	u32 thread_id = vnet_hw_if_get_rx_queue_thread_index(vnm,
++						rxq->queue_index);
++        if (dm->dpdk_pm_enabled)
++          {
++		rv = rte_power_ethdev_pmgmt_queue_enable(thread_id,
++			xd->port_id, j,	dm->dpdk_pm_mode);
++		if (rv < 0)
++                      dpdk_device_error (xd,
++			"rte_power_ethdev_pmgmt_queue_enable", rv);
++          }
++      }
+     }
+ 
+   if (vec_len (xd->errors))
+diff --git a/src/plugins/dpdk/device/init.c b/src/plugins/dpdk/device/init.c
+index d2cdadd72..0a5ada6ec 100644
+--- a/src/plugins/dpdk/device/init.c
++++ b/src/plugins/dpdk/device/init.c
+@@ -463,21 +463,6 @@ dpdk_lib_init (dpdk_main_t * dm)
+ 	      dpdk_rx_queue_t *rxq = vec_elt_at_index (xd->rx_queues, q);
+ 	      rxq->queue_index = vnet_hw_if_register_rx_queue (
+ 		vnm, xd->hw_if_index, q++, vdm->first_worker_thread_index + j);
+-	      if (dm->dpdk_pm_enabled)
+-	        {
+-	          if (rte_power_ethdev_pmgmt_queue_enable(
+-					  vdm->first_worker_thread_index + j,
+-					  xd->port_id, q,
+-					  dm->dpdk_pm_mode) != 0)
+-	              dpdk_log_warn ("DPDK PM failed to enable on port %U"
+-				     " queue %U mode %U\n",
+-				     xd->port_id, q, dm->dpdk_pm_mode);
+-		  else
+-		      vlib_log_info(dm->log_default,
+-		                   "DPDK PM initialization: enabled mode %u"
+-				   " port %u queue %u", dm->dpdk_pm_mode,
+-				   xd->port_id, q);
+-		}
+ 	    }
+ 	}
+       else
+-- 
+2.34.1
+

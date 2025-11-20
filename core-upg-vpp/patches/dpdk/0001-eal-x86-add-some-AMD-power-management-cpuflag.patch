@@ -1,0 +1,49 @@
+From 31d224f3234a8798104b14a00edc9ced5673c61d Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Mon, 20 Oct 2025 07:45:42 +0000
+Subject: [PATCH 1/5] eal/x86: add some AMD power management cpuflag
+
+Add a new CPUID flag to indicate support for monitorx instruction
+on AMD EPYC processors.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ lib/eal/x86/include/rte_cpuflags.h | 1 +
+ lib/eal/x86/rte_cpuflags.c         | 3 +++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/lib/eal/x86/include/rte_cpuflags.h b/lib/eal/x86/include/rte_cpuflags.h
+index 92e90fb6e0..d3e608533a 100644
+--- a/lib/eal/x86/include/rte_cpuflags.h
++++ b/lib/eal/x86/include/rte_cpuflags.h
+@@ -133,6 +133,7 @@ enum rte_cpu_flag_t {
+ 	RTE_CPUFLAG_AVX512VP2INTERSECT,     /**< AVX512 Two Register Intersection */
+ 
+ 	RTE_CPUFLAG_WAITPKG,                /**< UMONITOR/UMWAIT/TPAUSE */
++	RTE_CPUFLAG_MONITORX,               /**< MONITORX */
+ 
+ 	/* The last item */
+ 	RTE_CPUFLAG_NUMFLAGS,               /**< This should always be the last! */
+diff --git a/lib/eal/x86/rte_cpuflags.c b/lib/eal/x86/rte_cpuflags.c
+index d6b518251b..22f3bed412 100644
+--- a/lib/eal/x86/rte_cpuflags.c
++++ b/lib/eal/x86/rte_cpuflags.c
+@@ -133,6 +133,7 @@ const struct feature_entry rte_cpu_feature_table[] = {
+ 
+ 	FEAT_DEF(LAHF_SAHF, 0x80000001, 0, RTE_REG_ECX,  0)
+ 	FEAT_DEF(LZCNT, 0x80000001, 0, RTE_REG_ECX,  4)
++	FEAT_DEF(MONITORX, 0x80000001, 0, RTE_REG_ECX,  29)
+ 
+ 	FEAT_DEF(SYSCALL, 0x80000001, 0, RTE_REG_EDX, 11)
+ 	FEAT_DEF(XD, 0x80000001, 0, RTE_REG_EDX, 20)
+@@ -191,5 +192,7 @@ rte_cpu_get_intrinsics_support(struct rte_cpu_intrinsics *intrinsics)
+ 		intrinsics->power_pause = 1;
+ 		if (rte_cpu_get_flag_enabled(RTE_CPUFLAG_RTM))
+ 			intrinsics->power_monitor_multi = 1;
++	} else if (rte_cpu_get_flag_enabled(RTE_CPUFLAG_MONITORX)) {
++		intrinsics->power_monitor = 1;
+ 	}
+ }
+-- 
+2.34.1
+

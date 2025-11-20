@@ -1,0 +1,5120 @@
+- seid: 0
+  pdrs:
+  - pdrID: 0
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1234
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 10.10.10.10
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 10
+    urrIDs:
+    - 100
+  fars:
+  - farID: 10
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 100
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 1
+  pdrs:
+  - pdrID: 1
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 10.10.10.10
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 10.10.10.10/32
+    farID: 11
+    urrIDs:
+    - 101
+  fars:
+  - farID: 11
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4321
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 101
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 2
+  pdrs:
+  - pdrID: 2
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1235
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 11.11.11.11
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 12
+    urrIDs:
+    - 102
+  fars:
+  - farID: 12
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 102
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 3
+  pdrs:
+  - pdrID: 3
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 11.11.11.11
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 11.11.11.11/32
+    farID: 13
+    urrIDs:
+    - 103
+  fars:
+  - farID: 13
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4322
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 103
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 4
+  pdrs:
+  - pdrID: 4
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1236
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 12.12.12.12
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 14
+    urrIDs:
+    - 104
+  fars:
+  - farID: 14
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 104
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 5
+  pdrs:
+  - pdrID: 5
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 12.12.12.12
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 12.12.12.12/32
+    farID: 15
+    urrIDs:
+    - 105
+  fars:
+  - farID: 15
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4323
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 105
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 6
+  pdrs:
+  - pdrID: 6
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1237
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 13.13.13.13
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 16
+    urrIDs:
+    - 106
+  fars:
+  - farID: 16
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 106
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 7
+  pdrs:
+  - pdrID: 7
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 13.13.13.13
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 13.13.13.13/32
+    farID: 17
+    urrIDs:
+    - 107
+  fars:
+  - farID: 17
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4324
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 107
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 8
+  pdrs:
+  - pdrID: 8
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1238
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 14.14.14.14
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 18
+    urrIDs:
+    - 108
+  fars:
+  - farID: 18
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 108
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 9
+  pdrs:
+  - pdrID: 9
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 14.14.14.14
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 14.14.14.14/32
+    farID: 19
+    urrIDs:
+    - 109
+  fars:
+  - farID: 19
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4325
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 109
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 10
+  pdrs:
+  - pdrID: 10
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1239
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 15.15.15.15
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 20
+    urrIDs:
+    - 110
+  fars:
+  - farID: 20
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 110
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 11
+  pdrs:
+  - pdrID: 11
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 15.15.15.15
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 15.15.15.15/32
+    farID: 21
+    urrIDs:
+    - 111
+  fars:
+  - farID: 21
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4326
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 111
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 12
+  pdrs:
+  - pdrID: 12
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1240
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 16.16.16.16
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 22
+    urrIDs:
+    - 112
+  fars:
+  - farID: 22
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 112
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 13
+  pdrs:
+  - pdrID: 13
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 16.16.16.16
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 16.16.16.16/32
+    farID: 23
+    urrIDs:
+    - 113
+  fars:
+  - farID: 23
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4327
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 113
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 14
+  pdrs:
+  - pdrID: 14
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1241
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 17.17.17.17
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 24
+    urrIDs:
+    - 114
+  fars:
+  - farID: 24
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 114
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 15
+  pdrs:
+  - pdrID: 15
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 17.17.17.17
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 17.17.17.17/32
+    farID: 25
+    urrIDs:
+    - 115
+  fars:
+  - farID: 25
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4328
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 115
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 16
+  pdrs:
+  - pdrID: 16
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1242
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 18.18.18.18
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 26
+    urrIDs:
+    - 116
+  fars:
+  - farID: 26
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 116
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 17
+  pdrs:
+  - pdrID: 17
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 18.18.18.18
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 18.18.18.18/32
+    farID: 27
+    urrIDs:
+    - 117
+  fars:
+  - farID: 27
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4329
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 117
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 18
+  pdrs:
+  - pdrID: 18
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1243
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 19.19.19.19
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 28
+    urrIDs:
+    - 118
+  fars:
+  - farID: 28
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 118
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 19
+  pdrs:
+  - pdrID: 19
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 19.19.19.19
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 19.19.19.19/32
+    farID: 29
+    urrIDs:
+    - 119
+  fars:
+  - farID: 29
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4330
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 119
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 20
+  pdrs:
+  - pdrID: 20
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1244
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 20.20.20.20
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 30
+    urrIDs:
+    - 120
+  fars:
+  - farID: 30
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 120
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 21
+  pdrs:
+  - pdrID: 21
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 20.20.20.20
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 20.20.20.20/32
+    farID: 31
+    urrIDs:
+    - 121
+  fars:
+  - farID: 31
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4331
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 121
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 22
+  pdrs:
+  - pdrID: 22
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1245
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 21.21.21.21
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 32
+    urrIDs:
+    - 122
+  fars:
+  - farID: 32
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 122
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 23
+  pdrs:
+  - pdrID: 23
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 21.21.21.21
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 21.21.21.21/32
+    farID: 33
+    urrIDs:
+    - 123
+  fars:
+  - farID: 33
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4332
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 123
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 24
+  pdrs:
+  - pdrID: 24
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1246
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 22.22.22.22
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 34
+    urrIDs:
+    - 124
+  fars:
+  - farID: 34
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 124
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 25
+  pdrs:
+  - pdrID: 25
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 22.22.22.22
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 22.22.22.22/32
+    farID: 35
+    urrIDs:
+    - 125
+  fars:
+  - farID: 35
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4333
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 125
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 26
+  pdrs:
+  - pdrID: 26
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1247
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 23.23.23.23
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 36
+    urrIDs:
+    - 126
+  fars:
+  - farID: 36
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 126
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 27
+  pdrs:
+  - pdrID: 27
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 23.23.23.23
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 23.23.23.23/32
+    farID: 37
+    urrIDs:
+    - 127
+  fars:
+  - farID: 37
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4334
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 127
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 28
+  pdrs:
+  - pdrID: 28
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1248
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 24.24.24.24
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 38
+    urrIDs:
+    - 128
+  fars:
+  - farID: 38
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 128
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 29
+  pdrs:
+  - pdrID: 29
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 24.24.24.24
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 24.24.24.24/32
+    farID: 39
+    urrIDs:
+    - 129
+  fars:
+  - farID: 39
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4335
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 129
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 30
+  pdrs:
+  - pdrID: 30
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1249
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 25.25.25.25
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 40
+    urrIDs:
+    - 130
+  fars:
+  - farID: 40
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 130
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 31
+  pdrs:
+  - pdrID: 31
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 25.25.25.25
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 25.25.25.25/32
+    farID: 41
+    urrIDs:
+    - 131
+  fars:
+  - farID: 41
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4336
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 131
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 32
+  pdrs:
+  - pdrID: 32
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1250
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 26.26.26.26
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 42
+    urrIDs:
+    - 132
+  fars:
+  - farID: 42
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 132
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 33
+  pdrs:
+  - pdrID: 33
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 26.26.26.26
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 26.26.26.26/32
+    farID: 43
+    urrIDs:
+    - 133
+  fars:
+  - farID: 43
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4337
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 133
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 34
+  pdrs:
+  - pdrID: 34
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1251
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 27.27.27.27
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 44
+    urrIDs:
+    - 134
+  fars:
+  - farID: 44
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 134
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 35
+  pdrs:
+  - pdrID: 35
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 27.27.27.27
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 27.27.27.27/32
+    farID: 45
+    urrIDs:
+    - 135
+  fars:
+  - farID: 45
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4338
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 135
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 36
+  pdrs:
+  - pdrID: 36
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1252
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 28.28.28.28
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 46
+    urrIDs:
+    - 136
+  fars:
+  - farID: 46
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 136
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 37
+  pdrs:
+  - pdrID: 37
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 28.28.28.28
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 28.28.28.28/32
+    farID: 47
+    urrIDs:
+    - 137
+  fars:
+  - farID: 47
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4339
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 137
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 38
+  pdrs:
+  - pdrID: 38
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1253
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 29.29.29.29
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 48
+    urrIDs:
+    - 138
+  fars:
+  - farID: 48
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 138
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 39
+  pdrs:
+  - pdrID: 39
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 29.29.29.29
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 29.29.29.29/32
+    farID: 49
+    urrIDs:
+    - 139
+  fars:
+  - farID: 49
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4340
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 139
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 40
+  pdrs:
+  - pdrID: 40
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1254
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 30.30.30.30
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 50
+    urrIDs:
+    - 140
+  fars:
+  - farID: 50
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 140
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 41
+  pdrs:
+  - pdrID: 41
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 30.30.30.30
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 30.30.30.30/32
+    farID: 51
+    urrIDs:
+    - 141
+  fars:
+  - farID: 51
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4341
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 141
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 42
+  pdrs:
+  - pdrID: 42
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1255
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 31.31.31.31
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 52
+    urrIDs:
+    - 142
+  fars:
+  - farID: 52
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 142
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 43
+  pdrs:
+  - pdrID: 43
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 31.31.31.31
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 31.31.31.31/32
+    farID: 53
+    urrIDs:
+    - 143
+  fars:
+  - farID: 53
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4342
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 143
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 44
+  pdrs:
+  - pdrID: 44
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1256
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 32.32.32.32
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 54
+    urrIDs:
+    - 144
+  fars:
+  - farID: 54
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 144
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 45
+  pdrs:
+  - pdrID: 45
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 32.32.32.32
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 32.32.32.32/32
+    farID: 55
+    urrIDs:
+    - 145
+  fars:
+  - farID: 55
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4343
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 145
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 46
+  pdrs:
+  - pdrID: 46
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1257
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 33.33.33.33
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 56
+    urrIDs:
+    - 146
+  fars:
+  - farID: 56
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 146
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 47
+  pdrs:
+  - pdrID: 47
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 33.33.33.33
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 33.33.33.33/32
+    farID: 57
+    urrIDs:
+    - 147
+  fars:
+  - farID: 57
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4344
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 147
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 48
+  pdrs:
+  - pdrID: 48
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1258
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 34.34.34.34
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 58
+    urrIDs:
+    - 148
+  fars:
+  - farID: 58
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 148
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 49
+  pdrs:
+  - pdrID: 49
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 34.34.34.34
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 34.34.34.34/32
+    farID: 59
+    urrIDs:
+    - 149
+  fars:
+  - farID: 59
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4345
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 149
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 50
+  pdrs:
+  - pdrID: 50
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1259
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 35.35.35.35
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 60
+    urrIDs:
+    - 150
+  fars:
+  - farID: 60
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 150
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 51
+  pdrs:
+  - pdrID: 51
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 35.35.35.35
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 35.35.35.35/32
+    farID: 61
+    urrIDs:
+    - 151
+  fars:
+  - farID: 61
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4346
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 151
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 52
+  pdrs:
+  - pdrID: 52
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1260
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 36.36.36.36
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 62
+    urrIDs:
+    - 152
+  fars:
+  - farID: 62
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 152
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 53
+  pdrs:
+  - pdrID: 53
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 36.36.36.36
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 36.36.36.36/32
+    farID: 63
+    urrIDs:
+    - 153
+  fars:
+  - farID: 63
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4347
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 153
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 54
+  pdrs:
+  - pdrID: 54
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1261
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 37.37.37.37
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 64
+    urrIDs:
+    - 154
+  fars:
+  - farID: 64
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 154
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 55
+  pdrs:
+  - pdrID: 55
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 37.37.37.37
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 37.37.37.37/32
+    farID: 65
+    urrIDs:
+    - 155
+  fars:
+  - farID: 65
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4348
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 155
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 56
+  pdrs:
+  - pdrID: 56
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1262
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 38.38.38.38
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 66
+    urrIDs:
+    - 156
+  fars:
+  - farID: 66
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 156
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 57
+  pdrs:
+  - pdrID: 57
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 38.38.38.38
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 38.38.38.38/32
+    farID: 67
+    urrIDs:
+    - 157
+  fars:
+  - farID: 67
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4349
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 157
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 58
+  pdrs:
+  - pdrID: 58
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1263
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 39.39.39.39
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 68
+    urrIDs:
+    - 158
+  fars:
+  - farID: 68
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 158
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 59
+  pdrs:
+  - pdrID: 59
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 39.39.39.39
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 39.39.39.39/32
+    farID: 69
+    urrIDs:
+    - 159
+  fars:
+  - farID: 69
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4350
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 159
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 60
+  pdrs:
+  - pdrID: 60
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1264
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 40.40.40.40
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 70
+    urrIDs:
+    - 160
+  fars:
+  - farID: 70
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 160
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 61
+  pdrs:
+  - pdrID: 61
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 40.40.40.40
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 40.40.40.40/32
+    farID: 71
+    urrIDs:
+    - 161
+  fars:
+  - farID: 71
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4351
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 161
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 62
+  pdrs:
+  - pdrID: 62
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1265
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 41.41.41.41
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 72
+    urrIDs:
+    - 162
+  fars:
+  - farID: 72
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 162
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 63
+  pdrs:
+  - pdrID: 63
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 41.41.41.41
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 41.41.41.41/32
+    farID: 73
+    urrIDs:
+    - 163
+  fars:
+  - farID: 73
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4352
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 163
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 64
+  pdrs:
+  - pdrID: 64
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1266
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 42.42.42.42
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 74
+    urrIDs:
+    - 164
+  fars:
+  - farID: 74
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 164
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 65
+  pdrs:
+  - pdrID: 65
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 42.42.42.42
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 42.42.42.42/32
+    farID: 75
+    urrIDs:
+    - 165
+  fars:
+  - farID: 75
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4353
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 165
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 66
+  pdrs:
+  - pdrID: 66
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1267
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 43.43.43.43
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 76
+    urrIDs:
+    - 166
+  fars:
+  - farID: 76
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 166
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 67
+  pdrs:
+  - pdrID: 67
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 43.43.43.43
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 43.43.43.43/32
+    farID: 77
+    urrIDs:
+    - 167
+  fars:
+  - farID: 77
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4354
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 167
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 68
+  pdrs:
+  - pdrID: 68
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1268
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 44.44.44.44
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 78
+    urrIDs:
+    - 168
+  fars:
+  - farID: 78
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 168
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 69
+  pdrs:
+  - pdrID: 69
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 44.44.44.44
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 44.44.44.44/32
+    farID: 79
+    urrIDs:
+    - 169
+  fars:
+  - farID: 79
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4355
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 169
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 70
+  pdrs:
+  - pdrID: 70
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1269
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 45.45.45.45
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 80
+    urrIDs:
+    - 170
+  fars:
+  - farID: 80
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 170
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 71
+  pdrs:
+  - pdrID: 71
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 45.45.45.45
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 45.45.45.45/32
+    farID: 81
+    urrIDs:
+    - 171
+  fars:
+  - farID: 81
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4356
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 171
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 72
+  pdrs:
+  - pdrID: 72
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1270
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 46.46.46.46
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 82
+    urrIDs:
+    - 172
+  fars:
+  - farID: 82
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 172
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 73
+  pdrs:
+  - pdrID: 73
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 46.46.46.46
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 46.46.46.46/32
+    farID: 83
+    urrIDs:
+    - 173
+  fars:
+  - farID: 83
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4357
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 173
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 74
+  pdrs:
+  - pdrID: 74
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1271
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 47.47.47.47
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 84
+    urrIDs:
+    - 174
+  fars:
+  - farID: 84
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 174
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 75
+  pdrs:
+  - pdrID: 75
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 47.47.47.47
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 47.47.47.47/32
+    farID: 85
+    urrIDs:
+    - 175
+  fars:
+  - farID: 85
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4358
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 175
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 76
+  pdrs:
+  - pdrID: 76
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1272
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 48.48.48.48
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 86
+    urrIDs:
+    - 176
+  fars:
+  - farID: 86
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 176
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 77
+  pdrs:
+  - pdrID: 77
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 48.48.48.48
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 48.48.48.48/32
+    farID: 87
+    urrIDs:
+    - 177
+  fars:
+  - farID: 87
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4359
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 177
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 78
+  pdrs:
+  - pdrID: 78
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1273
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 49.49.49.49
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 88
+    urrIDs:
+    - 178
+  fars:
+  - farID: 88
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 178
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 79
+  pdrs:
+  - pdrID: 79
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 49.49.49.49
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 49.49.49.49/32
+    farID: 89
+    urrIDs:
+    - 179
+  fars:
+  - farID: 89
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4360
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 179
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 80
+  pdrs:
+  - pdrID: 80
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1274
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 50.50.50.50
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 90
+    urrIDs:
+    - 180
+  fars:
+  - farID: 90
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 180
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 81
+  pdrs:
+  - pdrID: 81
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 50.50.50.50
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 50.50.50.50/32
+    farID: 91
+    urrIDs:
+    - 181
+  fars:
+  - farID: 91
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4361
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 181
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 82
+  pdrs:
+  - pdrID: 82
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1275
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 51.51.51.51
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 92
+    urrIDs:
+    - 182
+  fars:
+  - farID: 92
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 182
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 83
+  pdrs:
+  - pdrID: 83
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 51.51.51.51
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 51.51.51.51/32
+    farID: 93
+    urrIDs:
+    - 183
+  fars:
+  - farID: 93
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4362
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 183
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 84
+  pdrs:
+  - pdrID: 84
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1276
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 52.52.52.52
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 94
+    urrIDs:
+    - 184
+  fars:
+  - farID: 94
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 184
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 85
+  pdrs:
+  - pdrID: 85
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 52.52.52.52
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 52.52.52.52/32
+    farID: 95
+    urrIDs:
+    - 185
+  fars:
+  - farID: 95
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4363
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 185
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 86
+  pdrs:
+  - pdrID: 86
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1277
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 53.53.53.53
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 96
+    urrIDs:
+    - 186
+  fars:
+  - farID: 96
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 186
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 87
+  pdrs:
+  - pdrID: 87
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 53.53.53.53
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 53.53.53.53/32
+    farID: 97
+    urrIDs:
+    - 187
+  fars:
+  - farID: 97
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4364
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 187
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 88
+  pdrs:
+  - pdrID: 88
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1278
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 54.54.54.54
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 98
+    urrIDs:
+    - 188
+  fars:
+  - farID: 98
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 188
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 89
+  pdrs:
+  - pdrID: 89
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 54.54.54.54
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 54.54.54.54/32
+    farID: 99
+    urrIDs:
+    - 189
+  fars:
+  - farID: 99
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4365
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 189
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 90
+  pdrs:
+  - pdrID: 90
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1279
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 55.55.55.55
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 100
+    urrIDs:
+    - 190
+  fars:
+  - farID: 100
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 190
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 91
+  pdrs:
+  - pdrID: 91
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 55.55.55.55
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 55.55.55.55/32
+    farID: 101
+    urrIDs:
+    - 191
+  fars:
+  - farID: 101
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4366
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 191
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 92
+  pdrs:
+  - pdrID: 92
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1280
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 56.56.56.56
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 102
+    urrIDs:
+    - 192
+  fars:
+  - farID: 102
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 192
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 93
+  pdrs:
+  - pdrID: 93
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 56.56.56.56
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 56.56.56.56/32
+    farID: 103
+    urrIDs:
+    - 193
+  fars:
+  - farID: 103
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4367
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 193
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 94
+  pdrs:
+  - pdrID: 94
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1281
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 57.57.57.57
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 104
+    urrIDs:
+    - 194
+  fars:
+  - farID: 104
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 194
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 95
+  pdrs:
+  - pdrID: 95
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 57.57.57.57
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 57.57.57.57/32
+    farID: 105
+    urrIDs:
+    - 195
+  fars:
+  - farID: 105
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4368
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 195
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 96
+  pdrs:
+  - pdrID: 96
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1282
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 58.58.58.58
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 106
+    urrIDs:
+    - 196
+  fars:
+  - farID: 106
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 196
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 97
+  pdrs:
+  - pdrID: 97
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 58.58.58.58
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 58.58.58.58/32
+    farID: 107
+    urrIDs:
+    - 197
+  fars:
+  - farID: 107
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4369
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 197
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 98
+  pdrs:
+  - pdrID: 98
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1283
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 59.59.59.59
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 108
+    urrIDs:
+    - 198
+  fars:
+  - farID: 108
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 198
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 99
+  pdrs:
+  - pdrID: 99
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 59.59.59.59
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 59.59.59.59/32
+    farID: 109
+    urrIDs:
+    - 199
+  fars:
+  - farID: 109
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4370
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 199
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 100
+  pdrs:
+  - pdrID: 100
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1284
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 60.60.60.60
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 110
+    urrIDs:
+    - 200
+  fars:
+  - farID: 110
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 200
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 101
+  pdrs:
+  - pdrID: 101
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 60.60.60.60
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 60.60.60.60/32
+    farID: 111
+    urrIDs:
+    - 201
+  fars:
+  - farID: 111
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4371
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 201
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 102
+  pdrs:
+  - pdrID: 102
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1285
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 61.61.61.61
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 112
+    urrIDs:
+    - 202
+  fars:
+  - farID: 112
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 202
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 103
+  pdrs:
+  - pdrID: 103
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 61.61.61.61
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 61.61.61.61/32
+    farID: 113
+    urrIDs:
+    - 203
+  fars:
+  - farID: 113
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4372
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 203
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 104
+  pdrs:
+  - pdrID: 104
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1286
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 62.62.62.62
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 114
+    urrIDs:
+    - 204
+  fars:
+  - farID: 114
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 204
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 105
+  pdrs:
+  - pdrID: 105
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 62.62.62.62
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 62.62.62.62/32
+    farID: 115
+    urrIDs:
+    - 205
+  fars:
+  - farID: 115
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4373
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 205
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 106
+  pdrs:
+  - pdrID: 106
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1287
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 63.63.63.63
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 116
+    urrIDs:
+    - 206
+  fars:
+  - farID: 116
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 206
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 107
+  pdrs:
+  - pdrID: 107
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 63.63.63.63
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 63.63.63.63/32
+    farID: 117
+    urrIDs:
+    - 207
+  fars:
+  - farID: 117
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4374
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 207
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 108
+  pdrs:
+  - pdrID: 108
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1288
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 64.64.64.64
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 118
+    urrIDs:
+    - 208
+  fars:
+  - farID: 118
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 208
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 109
+  pdrs:
+  - pdrID: 109
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 64.64.64.64
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 64.64.64.64/32
+    farID: 119
+    urrIDs:
+    - 209
+  fars:
+  - farID: 119
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4375
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 209
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 110
+  pdrs:
+  - pdrID: 110
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1289
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 65.65.65.65
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 120
+    urrIDs:
+    - 210
+  fars:
+  - farID: 120
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 210
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 111
+  pdrs:
+  - pdrID: 111
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 65.65.65.65
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 65.65.65.65/32
+    farID: 121
+    urrIDs:
+    - 211
+  fars:
+  - farID: 121
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4376
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 211
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 112
+  pdrs:
+  - pdrID: 112
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1290
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 66.66.66.66
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 122
+    urrIDs:
+    - 212
+  fars:
+  - farID: 122
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 212
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 113
+  pdrs:
+  - pdrID: 113
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 66.66.66.66
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 66.66.66.66/32
+    farID: 123
+    urrIDs:
+    - 213
+  fars:
+  - farID: 123
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4377
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 213
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 114
+  pdrs:
+  - pdrID: 114
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1291
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 67.67.67.67
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 124
+    urrIDs:
+    - 214
+  fars:
+  - farID: 124
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 214
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 115
+  pdrs:
+  - pdrID: 115
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 67.67.67.67
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 67.67.67.67/32
+    farID: 125
+    urrIDs:
+    - 215
+  fars:
+  - farID: 125
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4378
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 215
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 116
+  pdrs:
+  - pdrID: 116
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1292
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 68.68.68.68
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 126
+    urrIDs:
+    - 216
+  fars:
+  - farID: 126
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 216
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 117
+  pdrs:
+  - pdrID: 117
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 68.68.68.68
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 68.68.68.68/32
+    farID: 127
+    urrIDs:
+    - 217
+  fars:
+  - farID: 127
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4379
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 217
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 118
+  pdrs:
+  - pdrID: 118
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1293
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 69.69.69.69
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 128
+    urrIDs:
+    - 218
+  fars:
+  - farID: 128
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 218
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 119
+  pdrs:
+  - pdrID: 119
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 69.69.69.69
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 69.69.69.69/32
+    farID: 129
+    urrIDs:
+    - 219
+  fars:
+  - farID: 129
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4380
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 219
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 120
+  pdrs:
+  - pdrID: 120
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1294
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 70.70.70.70
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 130
+    urrIDs:
+    - 220
+  fars:
+  - farID: 130
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 220
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 121
+  pdrs:
+  - pdrID: 121
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 70.70.70.70
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 70.70.70.70/32
+    farID: 131
+    urrIDs:
+    - 221
+  fars:
+  - farID: 131
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4381
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 221
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 122
+  pdrs:
+  - pdrID: 122
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1295
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 71.71.71.71
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 132
+    urrIDs:
+    - 222
+  fars:
+  - farID: 132
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 222
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 123
+  pdrs:
+  - pdrID: 123
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 71.71.71.71
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 71.71.71.71/32
+    farID: 133
+    urrIDs:
+    - 223
+  fars:
+  - farID: 133
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4382
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 223
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 124
+  pdrs:
+  - pdrID: 124
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1296
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 72.72.72.72
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 134
+    urrIDs:
+    - 224
+  fars:
+  - farID: 134
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 224
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 125
+  pdrs:
+  - pdrID: 125
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 72.72.72.72
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 72.72.72.72/32
+    farID: 135
+    urrIDs:
+    - 225
+  fars:
+  - farID: 135
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4383
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 225
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 126
+  pdrs:
+  - pdrID: 126
+    precedence: 0
+    pdi:
+      sourceInterface: Access
+      localFTEID:
+        teid: 1297
+        ip4: 192.168.72.201
+      networkInstance: access
+      ueIPAddress:
+        isDestination: false
+        ip4: 73.73.73.73
+    outerHeaderRemoval: OUTER_HEADER_GTPU_UDP_IPV4
+    farID: 136
+    urrIDs:
+    - 226
+  fars:
+  - farID: 136
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: SGiLAN
+      networkInstance: sgi
+  urrs:
+  - urrID: 226
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
+- seid: 127
+  pdrs:
+  - pdrID: 127
+    precedence: 0
+    pdi:
+      sourceInterface: SGiLAN
+      networkInstance: sgi
+      ueIPAddress:
+        isDestination: true
+        ip4: 73.73.73.73
+      sdfFilter:
+        flowDescription: permit in ip from 0.0.0.0/0 to 73.73.73.73/32
+    farID: 137
+    urrIDs:
+    - 227
+  fars:
+  - farID: 137
+    applyAction: Forward
+    forwardingParameters:
+      destinationInterface: Access
+      networkInstance: access
+      outerHeaderCreation:
+        desc: OUTER_HEADER_CREATION_GTPU_UDP_IPV4
+        teid: 4384
+        ip: 192.168.72.1
+  urrs:
+  - urrID: 227
+    measurementMethod:
+      volume: true
+      duration: true
+    reportingTriggers:
+      startOfTraffic: true
+      endOfTraffic: true
+      volumeThreshold: true
+    measurementPeriod: 10
+    volumeThreshold:
+      totalVolume: 10000000
+    reportingFrequency: 1
+    reportType:
+      usageReport: true
+      eventReport: false
