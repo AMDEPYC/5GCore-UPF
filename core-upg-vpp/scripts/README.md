@@ -32,18 +32,18 @@ You can run either step individually or both together.
 
 ## 🧱 2. Script Location
 
-Save the script as `upf_run.sh` in a convenient path (e.g., `/opt/5gupf/scripts`).  
+Download the 5GUPF software in a convenient path (e.g., `/opt/5GUPF`).
 
 Ensure it is **executable**:
 ```bash
-chmod +x /opt/5gupf/scripts/upf_run.sh
+chmod +x /opt/5GUPF/core-upg-vpp/scripts/launch_upf.sh
 ```
 
 --- 
 
 ## 🛠 3. Usage
 
-sudo ./upf_run.sh <pod_id> <n3_pci_addr> <n6_pci_addr> <n3_workers> <n6_workers> <main_core> <num_sess> <pmd_mgmt_on> <mode>
+sudo ./launch_upf.sh <pod_id> <n3_pci_addr> <n6_pci_addr> <n3_workers> <n6_workers> <main_core> <num_sess> <pmd_mgmt_on> <mode>
 
 Arguments
 Argument	Description	Default
@@ -59,13 +59,13 @@ mode	Operation mode: generate, launch, or both	both
 
 Example Usage
 1. Generate configuration only
-sudo ./upf_run.sh 0 0000:41:00.0 0000:41:00.1 8-15 16-23 1 64 off generate
+sudo ./launch_upf.sh 0 0000:41:00.0 0000:41:00.1 8-15 16-23 1 64 off generate
 
 2. Launch VPP-UPF & PFCP simulation only
-sudo ./upf_run.sh 0 0000:41:00.0 0000:41:00.1 8-15 16-23 1 64 off launch
+sudo ./launch_upf.sh 0 0000:41:00.0 0000:41:00.1 8-15 16-23 1 64 off launch
 
 3. Generate configuration and launch services
-sudo ./upf_run.sh 0 0000:41:00.0 0000:41:00.1 8-15 16-23 1 64 off both
+sudo ./launch_upf.sh 0 0000:41:00.0 0000:41:00.1 8-15 16-23 1 64 off both
 
 --- 
 

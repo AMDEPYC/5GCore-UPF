@@ -8,7 +8,7 @@
 
 🧱 2. TRex Installation
      * mkdir -p /opt/trex-v3.07
-     * cd /opt/sivapt/trex-v3.07
+     * cd /opt/trex-v3.07
 # Extract TRex tarball here
 
      * python3 -m venv /opt/trex-venv38

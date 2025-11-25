@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upf
+spec:
+  replicas: 14
+  selector:
+    matchLabels:
+      app: upf
+  template:
+    metadata:
+      labels:
+        app: upf
+      annotations:
+        k8s.v1.cni.cncf.io/networks: |
+          [
+            { "name": "sriov-n3-net", "interface": "n3-net" },
+            { "name": "sriov-n6-net", "interface": "n6-net" }
+          ]
+        # Optional: hint scheduler to prefer NUMA 1
+        topology.kubernetes.io/numa-node: "1"
+    spec:
+      #hostPID: true
+      #hostNetwork: true
+      containers:
+      - name: upf-dp
+        image: sivapt86/upg-vpp:upg-vpp-ubuntu-22.04-v1.0.0
+        imagePullPolicy: IfNotPresent
+        command: [ "/bin/bash", "-c", "--" ]
+          #command: [ "/bin/bash", "-c", "exec /usr/bin/vpp -c /etc/vpp/startup.conf" ]
+        args: [ "while true; do sleep 300000; done;" ]
+        securityContext:
+          privileged: true
+          capabilities:
+              add: ["ALL"]
+        env:
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.uid
+        resources:
+          requests:
+            memory: "8Gi"
+            cpu: "16"
+            hugepages-1Gi: "4Gi"
+            power.amdepyc.com/performance: "16"
+            intel.com/mlx_vf_n3_dpdk: '1'
+            intel.com/mlx_vf_n6_dpdk: '1'
+          limits:
+            memory: "8Gi"
+            cpu: "16"
+            hugepages-1Gi: "4Gi"
+            power.amdepyc.com/performance: "16"
+            intel.com/mlx_vf_n3_dpdk: '1'
+            intel.com/mlx_vf_n6_dpdk: '1'
+        ports:
+          - containerPort: 9103
+        volumeMounts:
+          - name: pci-drivers
+            mountPath: /sys/bus/pci/drivers
+          - name: system-node
+            mountPath: /sys/devices/system/node
+          - mountPath: /sys/kernel/mm/hugepages
+            name: hugepages
+          - name: vfio
+            mountPath: /dev/vfio
+          - name: pods-run
+            mountPath: /run/vpp
+            subPathExpr: $(POD_UID)
+      volumes:
+        - name: pods-run
+          hostPath:
+            path: /var/run/pods
+            type: DirectoryOrCreate
+        - name: pci-drivers
+          hostPath:
+            path: /sys/bus/pci/drivers
+        - name: hugepages
+          hostPath:
+            path: /sys/kernel/mm/hugepages
+        - name: system-node
+          hostPath:
+            path: /sys/devices/system/node
+        - name: vfio
+          hostPath:
+            path: /dev/vfio
