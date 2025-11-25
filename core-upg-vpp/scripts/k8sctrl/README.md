@@ -11,10 +11,8 @@ scripts/k8sctrl/
 │
 ├── k8s_upf_runner.py         # Main orchestrator for UPF deployment lifecycle
 ├── k8s_pod_app_launcher.py   # Extract CPU/PCI info from KPM + invoke launch_upf.sh
-├── pod-launch.py             # Per-pod launcher invoked by runner
 ├── pod_cpu_network_info.sh   # Dump CPU, PCIe, MAC details for a pod
-├── pod_network_info.sh       # Dump pod networking details
-└── run_upf.py                # Optional wrapper script
+└── pod_network_info.sh       # Dump pod networking details
 ```
 
 ---
@@ -80,18 +78,7 @@ kubectl exec <pod> -n <namespace> -- \
 
 ---
 
-## 3️⃣ `pod-launch.py`
-
-Called internally by `k8s_upf_runner.py`.
-
-Expected functions:
-- Interact with `k8s_pod_app_launcher.py`
-- Manage pod resource preparation
-- Pass parameters to launch logic
-
----
-
-## 4️⃣ `pod_cpu_network_info.sh`
+## 3 `pod_cpu_network_info.sh`
 
 Utility script for hardware-level debugging.
 
@@ -107,7 +94,7 @@ Utility script for hardware-level debugging.
 
 ---
 
-## 5️⃣ `pod_network_info.sh`
+## 4 `pod_network_info.sh`
 
 Collects network-related details:
 - Interfaces
@@ -137,9 +124,7 @@ Collects network-related details:
 ```
 k8s_upf_runner.py
 │
-└── pod-launch.py (per pod)
-      │
-      └── k8s_pod_app_launcher.py
+└──  k8s_pod_app_launcher.py(per pod)
             │
             ├─ Get CPU list from powernodes CRD
             ├─ Parse PCI addresses from kubectl describe
