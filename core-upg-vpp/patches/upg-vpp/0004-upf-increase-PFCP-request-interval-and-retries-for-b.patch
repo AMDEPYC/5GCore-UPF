@@ -10,7 +10,7 @@ Content-Transfer-Encoding: 8bit
 Increase the default PFCP session request interval and retry count
 to accommodate benchmarking scenarios without an active PFCP simulator.
 
-- PFCP_DEFAULT_REQUEST_INTERVAL: 10s → 60s
+- PFCP_DEFAULT_REQUEST_INTERVAL: 10s → 120s
 - PFCP_DEFAULT_REQUEST_RETRIES: 3 → 30
 
 Without a PFCP responder, frequent heartbeats can lead to
@@ -32,7 +32,7 @@ index aeb6da8..59149b5 100644
  
 -#define PFCP_DEFAULT_REQUEST_INTERVAL 10
 -#define PFCP_DEFAULT_REQUEST_RETRIES  3
-+#define PFCP_DEFAULT_REQUEST_INTERVAL 60
++#define PFCP_DEFAULT_REQUEST_INTERVAL 120
 +#define PFCP_DEFAULT_REQUEST_RETRIES  30
  #define PFCP_MAX_HB_INTERVAL          120
  #define PFCP_MAX_HB_RETRIES           30
