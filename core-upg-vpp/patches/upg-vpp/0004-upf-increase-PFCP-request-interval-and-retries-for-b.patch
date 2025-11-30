@@ -1,7 +1,7 @@
-From 01ef1cd53de7a4cba926ea1dc0ce08cc9751a0b5 Mon Sep 17 00:00:00 2001
+From 5decf0be6151dba941ef78bf3c3be0dcd4736492 Mon Sep 17 00:00:00 2001
 From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
-Date: Tue, 28 Oct 2025 03:57:13 +0000
-Subject: [PATCH 4/4] upf: increase PFCP request interval and retries for
+Date: Sun, 30 Nov 2025 00:58:24 +0000
+Subject: [PATCH] upf: increase PFCP request interval and retries for
  benchmarking
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -10,8 +10,10 @@ Content-Transfer-Encoding: 8bit
 Increase the default PFCP session request interval and retry count
 to accommodate benchmarking scenarios without an active PFCP simulator.
 
-- PFCP_DEFAULT_REQUEST_INTERVAL: 10s → 120s
-- PFCP_DEFAULT_REQUEST_RETRIES: 3 → 30
+- PFCP_DEFAULT_REQUEST_INTERVAL: 10s → 255s
+- PFCP_DEFAULT_REQUEST_RETRIES: 3 → 255
+- PFCP_MAX_HB_INTERVAL: 120s → 255s
+- PFCP_MAX_HB_RETRIES: 30 → 255
 
 Without a PFCP responder, frequent heartbeats can lead to
 premature session deletions. Increasing the interval and retries
@@ -19,24 +21,28 @@ prevents unnecessary session teardown during performance testing.
 
 Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
 ---
- upf/upf_pfcp_server.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ upf/upf_pfcp_server.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/upf/upf_pfcp_server.h b/upf/upf_pfcp_server.h
-index aeb6da8..59149b5 100644
+index aeb6da8..1dff37b 100644
 --- a/upf/upf_pfcp_server.h
 +++ b/upf/upf_pfcp_server.h
-@@ -22,8 +22,8 @@
+@@ -22,10 +22,10 @@
  #include "pfcp.h"
  #include <vppinfra/tw_timer_1t_3w_1024sl_ov.h>
  
 -#define PFCP_DEFAULT_REQUEST_INTERVAL 10
 -#define PFCP_DEFAULT_REQUEST_RETRIES  3
-+#define PFCP_DEFAULT_REQUEST_INTERVAL 120
-+#define PFCP_DEFAULT_REQUEST_RETRIES  30
- #define PFCP_MAX_HB_INTERVAL          120
- #define PFCP_MAX_HB_RETRIES           30
+-#define PFCP_MAX_HB_INTERVAL          120
+-#define PFCP_MAX_HB_RETRIES           30
++#define PFCP_DEFAULT_REQUEST_INTERVAL 255
++#define PFCP_DEFAULT_REQUEST_RETRIES  255
++#define PFCP_MAX_HB_INTERVAL          255
++#define PFCP_MAX_HB_RETRIES           255
  #define PFCP_SERVER_HB_TIMER          0
+ #define PFCP_SERVER_T1                1
+ #define PFCP_SERVER_RESPONSE          2
 -- 
-2.34.1
+2.43.0
 
