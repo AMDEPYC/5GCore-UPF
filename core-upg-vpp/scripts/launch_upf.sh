@@ -40,7 +40,7 @@ launch_test() {
     sleep 10
 
     echo "Starting PFCP simulation..."
-    /5gupf/scripts/pfcp_sim/smf_pfcp.sh
+    /5gupf/scripts/pfcp_sim/launch_pfcp.sh
 
     echo "✅ VPP-UPF launched successfully!"
     echo "   Start traffic on N3/N6...!!"

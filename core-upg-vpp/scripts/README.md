@@ -15,7 +15,7 @@ The script performs **two main functions**:
 
 2. **Launch services**
    - Starts VPP-UPF for the given pod
-   - Launches PFCP simulation (`smf_pfcp.sh`)
+   - Launches PFCP simulation (`launch_pfcp.sh`)
 
 You can run either step individually or both together.
 
@@ -96,7 +96,7 @@ Starts the VPP-UPF instance:
 
 Starts PFCP simulation to communicate with UPF:
 
-/5gupf/scripts/pfcp_sim/smf_pfcp.sh
+/5gupf/scripts/pfcp_sim/launch_pfcp.sh
 
 ---
 

@@ -19,7 +19,7 @@ pip install pyyaml
 Script	         Purpose
 -------         ---------
 session_gen.py	 Generates PFCP session YAML file with uplink/downlink flows, PDRs, FARs, and URRs
-smf_pfcp.sh	 Launches PFCP client to communicate with UPF, monitors sessions and interfaces
+launch_pfcp.sh	 Launches PFCP client to communicate with UPF, monitors sessions and interfaces
 upf_run.sh	 Generates configuration and launches VPP-UPF + PFCP workflow
 ---
 
@@ -95,7 +95,7 @@ Each UE session has uplink and downlink PDRs, FARs, and URRs.
 TEIDs, SEIDs, and IPs are automatically incremented per session.
 ---
 
-## 🛠 4. PFCP Simulator (`smf_pfcp.sh`)
+## 🛠 4. PFCP Simulator (`launch_pfcp.sh`)
 
 This script runs a **PFCP client simulator** to interact with a UPF.  
 It automatically generates PFCP sessions, launches the client, monitors
@@ -123,7 +123,7 @@ interface and session health, and restarts the client if necessary.
 
 ## 🛠 4.3. Usage
 ```bash
-sudo ./smf_pfcp.sh [num_sessions]
+sudo ./launch_pfcp.sh [num_sessions]
 ```
 **Configurable variables**
 
@@ -139,7 +139,7 @@ PFCP_REMOTE_PORT 8805	              Remote PFCP server port
 SLEEP_INTERVAL	 15	              Seconds between checks
 
 ```bash
-sudo ./smf_pfcp.sh 64
+sudo ./launch_pfcp.sh 64
 ```
 ---
  
@@ -159,7 +159,7 @@ sudo ./smf_pfcp.sh 64
                    |
                    v
         +----------------------+
-        | smf_pfcp.sh          |
+        | launch_pfcp.sh       |
         | Start PFCP client    |
         | Monitor sessions     |
         +----------+-----------+
