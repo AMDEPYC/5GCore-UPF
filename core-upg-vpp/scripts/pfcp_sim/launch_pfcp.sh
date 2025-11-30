@@ -73,7 +73,7 @@ monitor_pfcpclient() {
         if ! ip addr show "$IFACE" | grep -q "UP"; then
             log "Interface $IFACE went down."
             cleanup_pfcpclient
-            restart_vpp 
+            #restart_vpp
             break
         fi
 
