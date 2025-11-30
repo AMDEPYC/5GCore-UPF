@@ -18,13 +18,13 @@ spec:
             { "name": "sriov-n6-net", "interface": "n6-net" }
           ]
         # Optional: hint scheduler to prefer NUMA 1
-        topology.kubernetes.io/numa-node: "1"
+        topology.kubernetes.io/numa-node: "0"
     spec:
       #hostPID: true
       #hostNetwork: true
       containers:
       - name: upf-dp
-        image: sivapt86/upg-vpp:upg-vpp-ubuntu-22.04-v1.0.0
+        image: amdepyc/upg-vpp:upg-vpp-ubuntu2204-v1.6
         imagePullPolicy: IfNotPresent
         command: [ "/bin/bash", "-c", "--" ]
           #command: [ "/bin/bash", "-c", "exec /usr/bin/vpp -c /etc/vpp/startup.conf" ]
