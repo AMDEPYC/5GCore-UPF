@@ -31,13 +31,13 @@ for pod in pods_json["items"]:
 
     # Only run for pods belonging to the deployment and are ready
     if labels.get("app") == deployment_name and ready_status:
-        print(f"Launching pod-launch.py for {pod_name} with index {pod_idx}")
-        p = subprocess.Popen(["python3", "./pod-launch.py", namespace, pod_name, str(pod_idx), str(mode), str(pmgmt)]
+        print(f"Launching k8s_pod_app_launcher.py for {pod_name} with index {pod_idx}")
+        p = subprocess.Popen(["python3", "./k8s_pod_app_launcher.py", namespace, pod_name, str(pod_idx), str(mode), str(pmgmt)]
 						,stdout=subprocess.DEVNULL,
 					    stderr=subprocess.DEVNULL
         				)
         processes.append(p)
-        subprocess.run(["python3", "./pod-launch.py", namespace, pod_name, str(pod_idx), str(mode), str(pmgmt)])
+        subprocess.run(["python3", "./k8s_pod_app_launcher.py", namespace, pod_name, str(pod_idx), str(mode), str(pmgmt)])
         pod_idx += 1  # increment for next pod
 
 for p in processes:
