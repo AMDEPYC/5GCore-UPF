@@ -5,7 +5,7 @@
 
 . settings.sh
 
-readonly TAG=$IMAGE_NAME:upg-vpp-ubuntu-$UBUNTU_VERSION
+readonly TAG=$IMAGE_NAME:upg-vpp-ubuntu$UBUNTU_VERSION-v1.7
 
 echo Ubuntu version: $UBUNTU_VERSION
 echo Tag: $TAG
@@ -16,4 +16,4 @@ docker build \
   --build-arg UBUNTU_VERSION \
   --build-arg DPDK_VERSION \
   --tag $TAG \
-  .
+  ..
