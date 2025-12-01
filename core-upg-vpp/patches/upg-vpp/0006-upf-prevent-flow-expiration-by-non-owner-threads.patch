@@ -1,0 +1,89 @@
+From de7517a3d8bb9285d1815740242783addbe3fd4a Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Thu, 27 Nov 2025 10:23:05 +0000
+Subject: [PATCH] upf: prevent flow expiration by non-owner threads
+
+This patch adds a thread-ownership check to try_expire_single_flow()
+to ensure that only the thread that created a flow is allowed to
+expire and delete it.
+
+Each flow stores the CPU index of the thread that created it
+(f->cpu_index). Previously, any worker thread processing a timer
+bucket could attempt to expire flows, which could lead to cross-thread
+races, inconsistent state updates, or premature deletion.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ upf/flowtable.c |  9 +++++++++
+ upf/flowtable.h | 14 ++++++++++++++
+ 2 files changed, 23 insertions(+)
+
+diff --git a/upf/flowtable.c b/upf/flowtable.c
+index 34a5042..691bdc2 100644
+--- a/upf/flowtable.c
++++ b/upf/flowtable.c
+@@ -91,12 +91,21 @@ try_expire_single_flow (flowtable_main_t *fm, flowtable_main_per_cpu_t *fmt,
+   bool keep = f->active + f->lifetime > now;
+   ASSERT (f->timer_slot == (e - fmt->timers));
+   ASSERT (f->active <= now);
++  u32 current_thread = os_get_thread_index();
+ 
+   upf_debug ("Flow Timeout Check %d: %u (%u) > %u (%u)", f - fm->flows,
+              f->active + f->lifetime,
+              (f->active + f->lifetime) % FLOW_TIMER_MAX_LIFETIME, now,
+              fmt->time_index);
+ 
++  /* Prevent non-owner threads from expiring this flow */
++  if (f->cpu_index != current_thread)
++    {
++        upf_debug("Flow %d: expiration skipped (owned by thread %u, current %u)",
++                  f - fm->flows, f->cpu_index, current_thread);
++        keep = true;
++    }
++
+   if (!keep && upf_proxy_flow_expire_event_handler (f))
+     {
+       /* flow still in use, wait for another lifetime */
+diff --git a/upf/flowtable.h b/upf/flowtable.h
+index 123f32f..d05f578 100644
+--- a/upf/flowtable.h
++++ b/upf/flowtable.h
+@@ -343,7 +343,14 @@ always_inline void
+ flowtable_timeout_stop_entry (flowtable_main_t *fm,
+                               flowtable_main_per_cpu_t *fmt, flow_entry_t *f)
+ {
++  u32 current_thread = os_get_thread_index();
+   ASSERT (f->timer_slot != (u16) ~0);
++  if (f->cpu_index != current_thread)
++  {
++      upf_debug("Skip timer stop on non-owner thread: flow %d owner %u current %u",
++                f - fm->flows, f->cpu_index, current_thread);
++      return;
++  }
+ 
+   flow_timeout_list_remove (fm->flows,
+                             vec_elt_at_index (fmt->timers, f->timer_slot), f);
+@@ -356,6 +363,7 @@ flowtable_timeout_start_entry (flowtable_main_t *fm,
+                                flowtable_main_per_cpu_t *fmt, flow_entry_t *f,
+                                u32 now)
+ {
++  u32 current_thread = os_get_thread_index();
+   ASSERT (f->timer_slot == (u16) ~0);
+ 
+   /*
+@@ -364,6 +372,12 @@ flowtable_timeout_start_entry (flowtable_main_t *fm,
+    * expiration time
+    */
+   ASSERT (fmt->next_check == ~0 || now + f->lifetime >= fmt->next_check);
++  if (f->cpu_index != current_thread)
++  {
++      upf_debug("Skip timer start on non-owner thread: flow %d owner %u current %u",
++                f - fm->flows, f->cpu_index, current_thread);
++      return;
++  }
+ 
+   u16 timer_slot = flowtable_time_to_timer_slot (now + f->lifetime);
+   flow_timeout_list_insert_tail (
+-- 
+2.43.0
+

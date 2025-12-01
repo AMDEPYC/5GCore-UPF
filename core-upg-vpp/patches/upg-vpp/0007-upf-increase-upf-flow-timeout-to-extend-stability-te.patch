@@ -1,0 +1,38 @@
+From d3d4a0510552502273ac7b1cd8590a5ea0017653 Mon Sep 17 00:00:00 2001
+From: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+Date: Sat, 29 Nov 2025 05:38:07 +0000
+Subject: [PATCH] upf: increase upf flow timeout to extend stability test
+
+This patch increases the default and maximum flow lifetime to
+prevent premature flow expiration during long-run stability tests:
+
+FLOW_TIMER_DEFAULT_LIFETIME increased from 60 seconds to 12 hours
+FLOW_TIMER_MAX_LIFETIME increased from 600 seconds to 18 hours
+
+The change ensures flows remain active for significantly longer periods,
+reducing churn in the flow table and providing a more stable environment
+for extended test scenarios.
+
+Signed-off-by: Sivaprasad Tummala <sivaprasad.tummala@amd.com>
+---
+ upf/flowtable.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/upf/flowtable.h b/upf/flowtable.h
+index d05f578..d0ae352 100644
+--- a/upf/flowtable.h
++++ b/upf/flowtable.h
+@@ -253,8 +253,8 @@ typedef enum
+ #define FLOWTABLE_TIMER_FREQUENCY (32.0)
+ 
+ /* Timers (in seconds) */
+-#define FLOW_TIMER_DEFAULT_LIFETIME (60)
+-#define FLOW_TIMER_MAX_LIFETIME     (600)
++#define FLOW_TIMER_DEFAULT_LIFETIME (3600 * 12)  // u16<65536
++#define FLOW_TIMER_MAX_LIFETIME     (3600 * 18)
+ 
+ /* Default max number of flows to expire during one run.
+  * 256 is the max number of packets in a vector, so this is a minimum
+-- 
+2.43.0
+
