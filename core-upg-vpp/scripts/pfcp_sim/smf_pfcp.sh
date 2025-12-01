@@ -12,7 +12,7 @@ PFCP_REMOTE_PORT=8805
 SLEEP_INTERVAL=15   # seconds between interface/session checks
 LOG_FILE="/var/log/pfcpclient_monitor.log"
 CONF_FILE="/etc/startup*.conf"
-VPP_BIN="/usr/bin/vpp"
+VPP_BIN="/usr/local/bin/vpp"
 PFCPCLIENT_BIN="/5gupf/scripts/pfcp_sim/pfcpclient"
 SESSION_GEN="/5gupf/scripts/pfcp_sim/session_gen.py"
 
